@@ -1,0 +1,1 @@
+alter table tweets drop columen parent_id if exists;

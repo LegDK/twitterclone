@@ -1,0 +1,50 @@
+scalar Time
+
+type User {
+    id: ID!
+    username: String!
+    email: String!
+    createdAt: Time!
+}
+
+input RegisterInput {
+    username: String!
+    email: String!
+    password: String!
+    confirmPassword: String!
+}
+
+input LoginInput {
+    email: String!
+    password: String!
+}
+
+input TweetInput {
+    body: String!
+}
+
+type AuthResponse {
+    accessToken: String!,
+    user: User!
+}
+
+type Tweet {
+    id: ID!,
+    body: String!,
+    user: User!,
+    userId: String!,
+    createdAt: Time!
+}
+
+type Query {
+    me: User
+    tweets: [Tweet!]!
+}
+
+type Mutation {
+    register(input: RegisterInput!): AuthResponse,
+    login(input: LoginInput!): AuthResponse
+    createTweet(tweetInput: TweetInput!): Tweet
+    createReply(parentId: ID!, tweetInput: TweetInput!): Tweet
+    deleteTweet(id: ID!): Boolean!
+}
